@@ -1,0 +1,2188 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "license": {
+      "name": "Apache 2.0"
+    },
+    "title": "Teams PowerShell REST API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://teamspowershellrestapi.azurewebsites.net/api"
+    }
+  ],
+  "paths": {
+    "/users/{identity}/onlinevoiceroutingpolicy": {
+      "post": {
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Grant Voice Routing Policy to a user",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "PolicyName": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "PolicyName"
+                ],
+                "example": {
+                  "PolicyName": "Global"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "GrantCsOnlineVoiceRoutingPolicy",
+        "tags": [
+          "VoiceRoutingPolicy"
+        ]
+      }
+    },
+    "/macros/addmultitenantvoiceroute": {
+      "post": {
+        "summary": "Invoke the \u0027Add Multitenant Voice Route\u0027 macro",
+        "tags": [
+          "Macro"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "204": {
+            "description": "No content"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          }
+        },
+        "operationId": "InvokeAddMultitenantVoiceRoute"
+      }
+    },
+    "/users/{identity}/dialplan": {
+      "post": {
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Grant Dial Plan to a user",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "PolicyName": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "PolicyName"
+                ],
+                "example": {
+                  "PolicyName": "Global"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "GrantCsDialPlan",
+        "tags": [
+          "DialPlan"
+        ]
+      }
+    },
+    "/onlinepstnusage": {
+      "get": {
+        "summary": "Get all Pstn Usage entries",
+        "tags": [
+          "PstnUsage"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "Identity"
+                    ],
+                    "properties": {
+                      "Identity": {
+                        "type": "string"
+                      },
+                      "Usage": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "example": {
+                      "Identity": "Global",
+                      "Usage": [
+                        "Unrestricted"
+                      ]
+                    }
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "All Pstn Usage entries"
+          }
+        },
+        "operationId": "GetCsOnlinePstnUsage"
+      }
+    },
+    "/onlinepstnusage/{identity}": {
+      "get": {
+        "summary": "Get a specific Pstn Usage",
+        "tags": [
+          "PstnUsage"
+        ],
+        "parameters": [
+          {
+            "description": "Identity of the entry to get",
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Identity"
+                  ],
+                  "properties": {
+                    "Identity": {
+                      "type": "string"
+                    },
+                    "Usage": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "Identity": "Global",
+                    "Usage": [
+                      "Unrestricted"
+                    ]
+                  }
+                }
+              }
+            },
+            "description": "Requested Pstn Usage entry"
+          }
+        },
+        "operationId": "GetCsOnlinePstnUsageByIdentity"
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Update an existing Pstn Usage",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Add": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "Remove": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  },
+                  "Replace": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "example": {
+                  "Add": [
+                    "new-usage1",
+                    "new-usage2"
+                  ],
+                  "Remove": "single-usage"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "SetCsOnlinePstnUsage",
+        "tags": [
+          "PstnUsage"
+        ]
+      }
+    },
+    "/callinglineidentity": {
+      "get": {
+        "summary": "Get all Calling Line Identity entries",
+        "tags": [
+          "CallingLineIdentity"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "Identity",
+                      "EnableUserOverride",
+                      "BlockIncomingPstnCallerID"
+                    ],
+                    "properties": {
+                      "Identity": {
+                        "type": "string"
+                      },
+                      "Description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "EnableUserOverride": {
+                        "type": "boolean"
+                      },
+                      "ServiceNumber": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "CallingIDSubstitute": {
+                        "type": "string",
+                        "enum": [
+                          "Anonymous",
+                          "Service",
+                          "LineUri",
+                          "Resource"
+                        ]
+                      },
+                      "BlockIncomingPstnCallerID": {
+                        "type": "boolean"
+                      },
+                      "ResourceAccount": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "CompanyName": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "example": {
+                      "Description": null,
+                      "EnableUserOverride": true,
+                      "ServiceNumber": null,
+                      "CallingIDSubstitute": "LineUri",
+                      "BlockIncomingPstnCallerID": false,
+                      "ResourceAccount": null,
+                      "CompanyName": null,
+                      "Identity": "Global"
+                    }
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "All Calling Line Identity entries"
+          }
+        },
+        "operationId": "GetCsCallingLineIdentity"
+      }
+    },
+    "/phonenumbers": {
+      "post": {
+        "summary": "Add Phone Number",
+        "tags": [
+          "PhoneNumber"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^\\d+(\\-\\d+)?$"
+                },
+                "minItems": 1,
+                "example": [
+                  "17005551000",
+                  "17005551000-17005551010"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^\\d+$"
+                  },
+                  "example": [
+                    "17005551000",
+                    "17005551001",
+                    "17005551002",
+                    "17005551003"
+                  ]
+                }
+              }
+            },
+            "description": "Results of add Phone Number operation"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "operationId": "AddPhoneNumber"
+      },
+      "get": {
+        "summary": "Get Phone Number",
+        "tags": [
+          "PhoneNumber"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^\\d+$"
+                  },
+                  "example": [
+                    "17005551000",
+                    "17005551001",
+                    "17005551002",
+                    "17005551003"
+                  ]
+                }
+              }
+            },
+            "description": "Results of get Phone Number operation"
+          }
+        },
+        "operationId": "GetPhoneNumber"
+      }
+    },
+    "/phonenumbers/{phoneNumber}": {
+      "delete": {
+        "parameters": [
+          {
+            "name": "phoneNumber",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{1,15}$"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Remove Phone Number",
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "204": {
+            "description": "No content"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          }
+        },
+        "tags": [
+          "PhoneNumber"
+        ],
+        "operationId": "RemovePhoneNumber"
+      }
+    },
+    "/macros/fetchexpandedtenant": {
+      "post": {
+        "summary": "Invoke the \u0027Fetch Expanded Tenant\u0027 macro",
+        "tags": [
+          "Macro"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "204": {
+            "description": "No content"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          }
+        },
+        "operationId": "InvokeFetchExpandedTenant"
+      }
+    },
+    "/dialplan": {
+      "get": {
+        "summary": "Get all Dial Plan entries",
+        "tags": [
+          "DialPlan"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "Identity"
+                    ],
+                    "properties": {
+                      "Identity": {
+                        "type": "string"
+                      },
+                      "Description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "DialinConferencingRegion": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "NormalizationRules": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "Name": {
+                              "type": "string"
+                            },
+                            "Description": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "Pattern": {
+                              "type": "string"
+                            },
+                            "Translation": {
+                              "type": "string"
+                            },
+                            "IsInternalExtension": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "Name",
+                            "Pattern",
+                            "Translation",
+                            "IsInternalExtension"
+                          ]
+                        }
+                      },
+                      "CountryCode": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "State": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "City": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "ExternalAccessPrefix": {
+                        "type": "string",
+                        "format": "int32",
+                        "nullable": true
+                      },
+                      "SimpleName": {
+                        "type": "string"
+                      },
+                      "OptimizeDeviceDialing": {
+                        "type": "boolean"
+                      },
+                      "ITUCountryPrefix": {
+                        "type": "string",
+                        "format": "int32",
+                        "nullable": true
+                      }
+                    },
+                    "example": {
+                      "Identity": "Global",
+                      "Description": null,
+                      "DialinConferencingRegion": null,
+                      "NormalizationRules": [
+                        {
+                          "Description": null,
+                          "Pattern": "^(\\d+)$",
+                          "Translation": "$1",
+                          "Name": "Keep All",
+                          "IsInternalExtension": false
+                        }
+                      ],
+                      "CountryCode": null,
+                      "State": null,
+                      "City": null,
+                      "ExternalAccessPrefix": null,
+                      "SimpleName": "DefaultProfile",
+                      "OptimizeDeviceDialing": false,
+                      "ITUCountryPrefix": null
+                    }
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "All Dial Plan entries"
+          }
+        },
+        "operationId": "GetCsDialPlan"
+      }
+    },
+    "/tenant": {
+      "get": {
+        "summary": "Get Tenant",
+        "tags": [
+          "Tenant"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Identity",
+                    "RouteType"
+                  ],
+                  "properties": {
+                    "Identity": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string"
+                    },
+                    "RouteType": {
+                      "type": "string"
+                    },
+                    "OnlinePstnUsages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "Name": "6e92923e-3d09-403b-9274-d2c5599a9020",
+                    "DisplayName": "example",
+                    "Domains": [
+                      "example.onmicrosoft.com",
+                      "abc123.sbc.exmaple.com"
+                    ],
+                    "DomainUrlMap": [
+                      "example.onmicrosoft.com",
+                      "abc123.sbc.exmaple.com"
+                    ],
+                    "TeamsUpgradeEffectiveMode": "TeamsOnly",
+                    "CountryAbbreviation": "CA"
+                  }
+                }
+              }
+            },
+            "description": "Results of get Tenant operation"
+          }
+        },
+        "operationId": "GetCsTenant"
+      }
+    },
+    "/users/{identity}": {
+      "get": {
+        "summary": "Get a specific User",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "description": "Identity of the entry to get",
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ObjectId",
+                    "UserPrincipalName",
+                    "AssignedPlan",
+                    "Enabled",
+                    "EnterpriseVoiceEnabled",
+                    "InterpretedUserType"
+                  ],
+                  "properties": {
+                    "ObjectId": {
+                      "type": "string"
+                    },
+                    "UserPrincipalName": {
+                      "type": "string"
+                    },
+                    "DisplayName": {
+                      "type": "string"
+                    },
+                    "AssignedPlan": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "Enabled": {
+                      "type": "boolean"
+                    },
+                    "EnterpriseVoiceEnabled": {
+                      "type": "boolean"
+                    },
+                    "InterpretedUserType": {
+                      "type": "string"
+                    },
+                    "LineURI": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "OnPremLineURI": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "CallingLineIdentity": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "DialPlan": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "OnlineVoiceRoutingPolicy": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "ApplicationInstanceType": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "example": {
+                    "ObjectId": "c34a01fd-f99a-47c6-9082-de9941fa87cd",
+                    "UserPrincipalName": "john@example.onmicrosoft.com",
+                    "DisplayName": "John Smith",
+                    "AssignedPlan": [
+                      "Teams",
+                      "MCOProfessional",
+                      "MCOEV"
+                    ],
+                    "Enabled": true,
+                    "EnterpriseVoiceEnabled": true,
+                    "InterpretedUserType": "PureOnlineTeamsOnlyUser",
+                    "LineURI": "tel:+17005551234",
+                    "OnPremLineURI": "tel:+17005551234",
+                    "CallingLineIdentity": null,
+                    "DialPlan": "US",
+                    "OnlineVoiceRoutingPolicy": "ExampleTelVrp",
+                    "ApplicationInstanceType": null
+                  }
+                }
+              }
+            },
+            "description": "Requested User entry"
+          }
+        },
+        "operationId": "GetCsOnlineUserByIdentity"
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Update an existing User",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Enabled": {
+                    "type": "boolean"
+                  },
+                  "EnterpriseVoiceEnabled": {
+                    "type": "boolean"
+                  },
+                  "HostedVoiceMail": {
+                    "type": "boolean"
+                  },
+                  "OnPremLineURI": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "example": {
+                  "Enabled": true,
+                  "EnterpriseVoiceEnabled": true,
+                  "HostedVoiceMail": true,
+                  "OnPremLineURI": "tel:+17005551234"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "SetCsUser",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/onlinevoiceroute": {
+      "post": {
+        "summary": "Create a new Voice Route",
+        "tags": [
+          "VoiceRoute"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "Identity",
+                  "Priority",
+                  "NumberPattern",
+                  "OnlinePstnGatewayList"
+                ],
+                "properties": {
+                  "Identity": {
+                    "type": "string"
+                  },
+                  "Description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "Priority": {
+                    "type": "integer"
+                  },
+                  "NumberPattern": {
+                    "type": "string"
+                  },
+                  "OnlinePstnGatewayList": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "OnlinePstnUsages": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "Identity": "ExampleTel",
+                  "Priority": 1,
+                  "Description": null,
+                  "NumberPattern": ".*",
+                  "OnlinePstnUsages": [
+                    "Unrestricted"
+                  ],
+                  "OnlinePstnGatewayList": [
+                    "abc123.sbc.example.com"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "operationId": "NewCsOnlineVoiceRoute"
+      },
+      "get": {
+        "summary": "Get all Voice Route entries",
+        "tags": [
+          "VoiceRoute"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "Identity",
+                      "Priority",
+                      "NumberPattern",
+                      "OnlinePstnGatewayList"
+                    ],
+                    "properties": {
+                      "Identity": {
+                        "type": "string"
+                      },
+                      "Description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "Priority": {
+                        "type": "integer"
+                      },
+                      "NumberPattern": {
+                        "type": "string"
+                      },
+                      "OnlinePstnGatewayList": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "OnlinePstnUsages": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "example": {
+                      "Identity": "ExampleTel",
+                      "Priority": 1,
+                      "Description": null,
+                      "NumberPattern": ".*",
+                      "OnlinePstnUsages": [
+                        "Unrestricted"
+                      ],
+                      "OnlinePstnGatewayList": [
+                        "abc123.sbc.example.com"
+                      ]
+                    }
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "All Voice Route entries"
+          }
+        },
+        "operationId": "GetCsOnlineVoiceRoute"
+      }
+    },
+    "/macros/updateuser": {
+      "post": {
+        "summary": "Invoke the \u0027Update User\u0027 macro",
+        "tags": [
+          "Macro"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "204": {
+            "description": "No content"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          }
+        },
+        "operationId": "InvokeUpdateUser"
+      }
+    },
+    "/onlineapplicationinstance/{identity}": {
+      "put": {
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Update an existing Application Instance",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "OnpremPhoneNumber": {
+                    "type": "string",
+                    "format": "int64",
+                    "nullable": true
+                  }
+                },
+                "example": {
+                  "OnpremPhoneNumber": "17005551234"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "SetCsOnlineApplicationInstance",
+        "tags": [
+          "ApplicationInstance"
+        ]
+      }
+    },
+    "/callinglineidentity/{identity}": {
+      "get": {
+        "summary": "Get a specific Calling Line Identity",
+        "tags": [
+          "CallingLineIdentity"
+        ],
+        "parameters": [
+          {
+            "description": "Identity of the entry to get",
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Identity",
+                    "EnableUserOverride",
+                    "BlockIncomingPstnCallerID"
+                  ],
+                  "properties": {
+                    "Identity": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "EnableUserOverride": {
+                      "type": "boolean"
+                    },
+                    "ServiceNumber": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "CallingIDSubstitute": {
+                      "type": "string",
+                      "enum": [
+                        "Anonymous",
+                        "Service",
+                        "LineUri",
+                        "Resource"
+                      ]
+                    },
+                    "BlockIncomingPstnCallerID": {
+                      "type": "boolean"
+                    },
+                    "ResourceAccount": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "CompanyName": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "example": {
+                    "Description": null,
+                    "EnableUserOverride": true,
+                    "ServiceNumber": null,
+                    "CallingIDSubstitute": "LineUri",
+                    "BlockIncomingPstnCallerID": false,
+                    "ResourceAccount": null,
+                    "CompanyName": null,
+                    "Identity": "Global"
+                  }
+                }
+              }
+            },
+            "description": "Requested Calling Line Identity entry"
+          }
+        },
+        "operationId": "GetCsCallingLineIdentityByIdentity"
+      }
+    },
+    "/onlinevoiceroutingpolicy/{identity}": {
+      "get": {
+        "summary": "Get a specific Voice Routing Policy",
+        "tags": [
+          "VoiceRoutingPolicy"
+        ],
+        "parameters": [
+          {
+            "description": "Identity of the entry to get",
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Identity",
+                    "RouteType"
+                  ],
+                  "properties": {
+                    "Identity": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "RouteType": {
+                      "type": "string"
+                    },
+                    "OnlinePstnUsages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "Identity": "Tag:ExampleTelVrp",
+                    "OnlinePstnUsages": [
+                      "Unrestricted"
+                    ],
+                    "Description": null,
+                    "RouteType": "BYOT"
+                  }
+                }
+              }
+            },
+            "description": "Requested Voice Routing Policy entry"
+          }
+        },
+        "operationId": "GetCsOnlineVoiceRoutingPolicyByIdentity"
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Update an existing Voice Routing Policy",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "OnlinePstnUsages": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "OnlinePstnUsages": [
+                    "Unrestricted"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "SetCsOnlineVoiceRoutingPolicy",
+        "tags": [
+          "VoiceRoutingPolicy"
+        ]
+      }
+    },
+    "/onlinevoiceroute/{identity}": {
+      "get": {
+        "summary": "Get a specific Voice Route",
+        "tags": [
+          "VoiceRoute"
+        ],
+        "parameters": [
+          {
+            "description": "Identity of the entry to get",
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Identity",
+                    "Priority",
+                    "NumberPattern",
+                    "OnlinePstnGatewayList"
+                  ],
+                  "properties": {
+                    "Identity": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "Priority": {
+                      "type": "integer"
+                    },
+                    "NumberPattern": {
+                      "type": "string"
+                    },
+                    "OnlinePstnGatewayList": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "OnlinePstnUsages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "Identity": "ExampleTel",
+                    "Priority": 1,
+                    "Description": null,
+                    "NumberPattern": ".*",
+                    "OnlinePstnUsages": [
+                      "Unrestricted"
+                    ],
+                    "OnlinePstnGatewayList": [
+                      "abc123.sbc.example.com"
+                    ]
+                  }
+                }
+              }
+            },
+            "description": "Requested Voice Route entry"
+          }
+        },
+        "operationId": "GetCsOnlineVoiceRouteByIdentity"
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Update an existing Voice Route",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "Priority",
+                  "NumberPattern",
+                  "OnlinePstnGatewayList"
+                ],
+                "properties": {
+                  "Description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "Priority": {
+                    "type": "integer"
+                  },
+                  "NumberPattern": {
+                    "type": "string"
+                  },
+                  "OnlinePstnGatewayList": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "OnlinePstnUsages": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "Priority": 1,
+                  "Description": null,
+                  "NumberPattern": ".*",
+                  "OnlinePstnUsages": [
+                    "Unrestricted"
+                  ],
+                  "OnlinePstnGatewayList": [
+                    "abc123.sbc.example.com"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "SetCsOnlineVoiceRoute",
+        "tags": [
+          "VoiceRoute"
+        ]
+      }
+    },
+    "/users/{identity}/callinglineidentity": {
+      "post": {
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "Grant Calling Line Identity to a user",
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "PolicyName": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "PolicyName"
+                ],
+                "example": {
+                  "PolicyName": "Global"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "GrantCsCallingLineIdentity",
+        "tags": [
+          "CallingLineIdentity"
+        ]
+      }
+    },
+    "/dialplan/{identity}": {
+      "get": {
+        "summary": "Get a specific Dial Plan",
+        "tags": [
+          "DialPlan"
+        ],
+        "parameters": [
+          {
+            "description": "Identity of the entry to get",
+            "name": "identity",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "Identity"
+                  ],
+                  "properties": {
+                    "Identity": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "DialinConferencingRegion": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "NormalizationRules": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "Name": {
+                            "type": "string"
+                          },
+                          "Description": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "Pattern": {
+                            "type": "string"
+                          },
+                          "Translation": {
+                            "type": "string"
+                          },
+                          "IsInternalExtension": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "Name",
+                          "Pattern",
+                          "Translation",
+                          "IsInternalExtension"
+                        ]
+                      }
+                    },
+                    "CountryCode": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "State": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "City": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "ExternalAccessPrefix": {
+                      "type": "string",
+                      "format": "int32",
+                      "nullable": true
+                    },
+                    "SimpleName": {
+                      "type": "string"
+                    },
+                    "OptimizeDeviceDialing": {
+                      "type": "boolean"
+                    },
+                    "ITUCountryPrefix": {
+                      "type": "string",
+                      "format": "int32",
+                      "nullable": true
+                    }
+                  },
+                  "example": {
+                    "Identity": "Global",
+                    "Description": null,
+                    "DialinConferencingRegion": null,
+                    "NormalizationRules": [
+                      {
+                        "Description": null,
+                        "Pattern": "^(\\d+)$",
+                        "Translation": "$1",
+                        "Name": "Keep All",
+                        "IsInternalExtension": false
+                      }
+                    ],
+                    "CountryCode": null,
+                    "State": null,
+                    "City": null,
+                    "ExternalAccessPrefix": null,
+                    "SimpleName": "DefaultProfile",
+                    "OptimizeDeviceDialing": false,
+                    "ITUCountryPrefix": null
+                  }
+                }
+              }
+            },
+            "description": "Requested Dial Plan entry"
+          }
+        },
+        "operationId": "GetCsDialPlanByIdentity"
+      }
+    },
+    "/onlinevoiceroutingpolicy": {
+      "post": {
+        "summary": "Create a new Voice Routing Policy",
+        "tags": [
+          "VoiceRoutingPolicy"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "Identity"
+                ],
+                "properties": {
+                  "Identity": {
+                    "type": "string"
+                  },
+                  "OnlinePstnUsages": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "Identity": "Tag:ExampleTelVrp",
+                  "OnlinePstnUsages": [
+                    "Unrestricted"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          }
+        },
+        "operationId": "NewCsOnlineVoiceRoutingPolicy"
+      },
+      "get": {
+        "summary": "Get all Voice Routing Policy entries",
+        "tags": [
+          "VoiceRoutingPolicy"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "Identity",
+                      "RouteType"
+                    ],
+                    "properties": {
+                      "Identity": {
+                        "type": "string"
+                      },
+                      "Description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "RouteType": {
+                        "type": "string"
+                      },
+                      "OnlinePstnUsages": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "example": {
+                      "Identity": "Tag:ExampleTelVrp",
+                      "OnlinePstnUsages": [
+                        "Unrestricted"
+                      ],
+                      "Description": null,
+                      "RouteType": "BYOT"
+                    }
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "All Voice Routing Policy entries"
+          }
+        },
+        "operationId": "GetCsOnlineVoiceRoutingPolicy"
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get all User entries",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "406": {
+            "$ref": "#/components/responses/NotAcceptableError"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequestsError"
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "ObjectId",
+                      "UserPrincipalName",
+                      "AssignedPlan",
+                      "Enabled",
+                      "EnterpriseVoiceEnabled",
+                      "InterpretedUserType"
+                    ],
+                    "properties": {
+                      "ObjectId": {
+                        "type": "string"
+                      },
+                      "UserPrincipalName": {
+                        "type": "string"
+                      },
+                      "DisplayName": {
+                        "type": "string"
+                      },
+                      "AssignedPlan": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "Enabled": {
+                        "type": "boolean"
+                      },
+                      "EnterpriseVoiceEnabled": {
+                        "type": "boolean"
+                      },
+                      "InterpretedUserType": {
+                        "type": "string"
+                      },
+                      "LineURI": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "OnPremLineURI": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "CallingLineIdentity": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "DialPlan": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "OnlineVoiceRoutingPolicy": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "ApplicationInstanceType": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "example": {
+                      "ObjectId": "c34a01fd-f99a-47c6-9082-de9941fa87cd",
+                      "UserPrincipalName": "john@example.onmicrosoft.com",
+                      "DisplayName": "John Smith",
+                      "AssignedPlan": [
+                        "Teams",
+                        "MCOProfessional",
+                        "MCOEV"
+                      ],
+                      "Enabled": true,
+                      "EnterpriseVoiceEnabled": true,
+                      "InterpretedUserType": "PureOnlineTeamsOnlyUser",
+                      "LineURI": "tel:+17005551234",
+                      "OnPremLineURI": "tel:+17005551234",
+                      "CallingLineIdentity": null,
+                      "DialPlan": "US",
+                      "OnlineVoiceRoutingPolicy": "ExampleTelVrp",
+                      "ApplicationInstanceType": null
+                    }
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "All User entries"
+          }
+        },
+        "operationId": "GetCsOnlineUser"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "NotAcceptableError": {
+        "description": "Cannot negotiate acceptable content"
+      },
+      "BadRequestError": {
+        "description": "Request body is missing or invalid"
+      },
+      "UnauthorizedError": {
+        "description": "Access token is missing or invalid"
+      },
+      "NotFoundError": {
+        "description": "Requested entry could not be found"
+      },
+      "TooManyRequestsError": {
+        "description": "Request has been rate limited"
+      },
+      "ForbiddenError": {
+        "description": "Access token does not have access"
+      }
+    },
+    "securitySchemes": {
+      "tokenAuth": {
+        "scheme": "bearer",
+        "type": "http",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "tokenAuth": [
+        
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "ApplicationInstance"
+    },
+    {
+      "name": "CallingLineIdentity"
+    },
+    {
+      "name": "DialPlan"
+    },
+    {
+      "name": "Macro"
+    },
+    {
+      "name": "PhoneNumber"
+    },
+    {
+      "name": "PstnUsage"
+    },
+    {
+      "name": "Tenant"
+    },
+    {
+      "name": "User"
+    },
+    {
+      "name": "VoiceRoute"
+    },
+    {
+      "name": "VoiceRoutingPolicy"
+    }
+  ]
+}
